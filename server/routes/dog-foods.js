@@ -1,4 +1,4 @@
-// ------------------------------  SERVER DATA ------------------------------  
+// ------------------------------  SERVER DATA ------------------------------
 
 let nextFoodId = 1;
 function getNewFoodId() {
@@ -10,33 +10,33 @@ function getNewFoodId() {
 const foods = [
   {
     foodId: getNewFoodId(),
-    name: "Kibble",
+    name: 'Kibble',
     dogId: 1
   },
   {
     foodId: getNewFoodId(),
-    name: "Bone",
+    name: 'Bone',
     dogId: 1
   },
   {
     foodId: getNewFoodId(),
-    name: "Biscuit",
+    name: 'Biscuit',
     dogId: 2
   }
 ];
 
-// ------------------------------  MIDDLEWARES ------------------------------ 
+// ------------------------------  MIDDLEWARES ------------------------------
 
 const validateFoodInfo = (req, res, next) => {
   if (!req.body || !req.body.name) {
-    const err = new Error("Food must have a name");
+    const err = new Error('Food must have a name');
     err.statusCode = 400;
     next(err);
   }
   next();
 };
 
-// ------------------------------  ROUTE HANDLERS ------------------------------  
+// ------------------------------  ROUTE HANDLERS ------------------------------
 
 // GET /dogs/:dogId/foods
 const getFoodsByDogId = (req, res) => {
@@ -57,6 +57,11 @@ const createFood = (req, res) => {
   res.json(newFood);
 };
 
-// ------------------------------  ROUTER ------------------------------  
+// ------------------------------  ROUTER ------------------------------
 
 // Your code here
+const methods = { getFoodsByDogId };
+module.exports = methods;
+// router.post('/', validateDogInfo, createDog);
+// router.put('/:dogId', [validateDogInfo, validateDogId], updateDog);
+// router.delete('/:dogId', validateDogId, deleteDog);

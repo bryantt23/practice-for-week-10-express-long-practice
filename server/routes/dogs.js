@@ -1,4 +1,5 @@
 const express = require('express');
+const methods = require('./dog-foods');
 const router = express.Router();
 
 // ------------------------------  SERVER DATA ------------------------------
@@ -93,5 +94,7 @@ router.get('/:dogId', validateDogId, getDogById);
 router.post('/', validateDogInfo, createDog);
 router.put('/:dogId', [validateDogInfo, validateDogId], updateDog);
 router.delete('/:dogId', validateDogId, deleteDog);
+
+router.get('/:dogId/foods', methods.getFoodsByDogId);
 
 module.exports = router;
