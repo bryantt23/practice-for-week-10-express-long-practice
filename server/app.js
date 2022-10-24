@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 app.use('/static', express.static('assets'));
+app.use(express.json());
 
 // For testing purposes, GET /
 app.get('/', (req, res) => {
@@ -14,8 +15,9 @@ app.get('/', (req, res) => {
 app.post('/test-json', (req, res, next) => {
   // send the body as JSON with a Content-Type header of "application/json"
   // finishes the response, res.end()
-  res.json(req.body);
+  res.json({ h1: 123, body: req.body });
   next();
+  res.end();
 });
 
 // For testing express-async-errors
