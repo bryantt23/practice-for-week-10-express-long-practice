@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const dogsRouters = require('./routes/dogs');
 require('express-async-errors');
 
 app.use('/static', express.static('assets'));
@@ -35,6 +36,8 @@ app.post('/test-json', (req, res, next) => {
 app.get('/test-error', async (req, res) => {
   throw new Error('Hello World!');
 });
+
+app.use('/dogs', dogsRouters);
 
 // https://github.com/davidbanham/express-async-errors
 app.use((err, req, res, next) => {

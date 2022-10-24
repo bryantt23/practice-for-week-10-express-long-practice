@@ -1,4 +1,7 @@
-// ------------------------------  SERVER DATA ------------------------------  
+const express = require('express');
+const router = express.Router();
+
+// ------------------------------  SERVER DATA ------------------------------
 
 let nextDogId = 1;
 function getNewDogId() {
@@ -10,19 +13,19 @@ function getNewDogId() {
 const dogs = [
   {
     dogId: getNewDogId(),
-    name: "Fluffy"
+    name: 'Fluffy'
   },
   {
     dogId: getNewDogId(),
-    name: "Digby"
+    name: 'Digby'
   }
 ];
 
-// ------------------------------  MIDDLEWARES ------------------------------ 
+// ------------------------------  MIDDLEWARES ------------------------------
 
 const validateDogInfo = (req, res, next) => {
   if (!req.body || !req.body.name) {
-    const err = new Error("Dog must have a name");
+    const err = new Error('Dog must have a name');
     err.statusCode = 400;
     next(err);
   }
@@ -32,15 +35,15 @@ const validateDogId = (req, res, next) => {
   const { dogId } = req.params;
   const dog = dogs.find(dog => dog.dogId == dogId);
   if (!dog) {
-    const err = new Error("Couldn't find dog with that dogId")
+    const err = new Error("Couldn't find dog with that dogId");
     err.statusCode = 404;
     throw err;
     // return next(err); // alternative to throwing it
   }
   next();
-}
+};
 
-// ------------------------------  ROUTE HANDLERS ------------------------------  
+// ------------------------------  ROUTE HANDLERS ------------------------------
 
 // GET /dogs
 const getAllDogs = (req, res) => {
@@ -52,7 +55,7 @@ const getDogById = (req, res) => {
   const { dogId } = req.params;
   const dog = dogs.find(dog => dog.dogId == dogId);
   res.json(dog);
-}
+};
 
 // POST /dogs
 const createDog = (req, res) => {
@@ -79,9 +82,12 @@ const deleteDog = (req, res) => {
   const { dogId } = req.params;
   const dogIdx = dogs.findIndex(dog => dog.dogId == dogId);
   dogs.splice(dogIdx, 1);
-  res.json({ message: "success" });
+  res.json({ message: 'success' });
 };
 
-// ------------------------------  ROUTER ------------------------------  
+// ------------------------------  ROUTER ------------------------------
 
 // Your code here
+router.get('/', getAllDogs);
+
+module.exports = router;
