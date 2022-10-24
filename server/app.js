@@ -3,7 +3,9 @@ const app = express();
 
 // For testing purposes, GET /
 app.get('/', (req, res) => {
-  res.json("Express server running. No content provided at root level. Please use another route.");
+  res.json(
+    'Express server running. No content provided at root level. Please use another route.'
+  );
 });
 
 // For testing express.json middleware
@@ -16,7 +18,7 @@ app.post('/test-json', (req, res, next) => {
 
 // For testing express-async-errors
 app.get('/test-error', async (req, res) => {
-  throw new Error("Hello World!")
+  throw new Error('Hello World!');
 });
 
 const port = 5000;
