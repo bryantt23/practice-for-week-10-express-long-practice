@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+require('express-async-errors');
 
 app.use('/static', express.static('assets'));
 app.use(express.json());
@@ -23,6 +24,16 @@ app.post('/test-json', (req, res, next) => {
 // For testing express-async-errors
 app.get('/test-error', async (req, res) => {
   throw new Error('Hello World!');
+});
+
+// https://github.com/davidbanham/express-async-errors
+app.use((err, req, res, next) => {
+  if (err) {
+    res.status(403);
+    res.json({ error: err.message });
+  }
+
+  next(err);
 });
 
 const port = 5000;
