@@ -5,6 +5,12 @@ require('express-async-errors');
 app.use('/static', express.static('assets'));
 app.use(express.json());
 
+const demoLogger = (req, res, next) => {
+  console.log(req.method, req.url);
+  next();
+};
+app.use(demoLogger);
+
 // For testing purposes, GET /
 app.get('/', (req, res) => {
   res.json(
