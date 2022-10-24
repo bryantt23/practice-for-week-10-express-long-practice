@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use('/static', express.static('assets'));
+
 // For testing purposes, GET /
 app.get('/', (req, res) => {
   res.json(
