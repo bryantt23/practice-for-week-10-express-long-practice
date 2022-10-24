@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const dogsRouters = require('./routes/dogs');
 require('express-async-errors');
+require('dotenv').config();
 
 app.use('/static', express.static('assets'));
 app.use(express.json());
+console.log(process.env.S3_BUCKET); // remove this after you've confirmed it is working
 
 // https://codesource.io/creating-a-logging-middleware-in-expressjs/
 const demoLogger = (req, res, next) => {
