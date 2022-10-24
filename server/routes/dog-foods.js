@@ -60,8 +60,5 @@ const createFood = (req, res) => {
 // ------------------------------  ROUTER ------------------------------
 
 // Your code here
-const methods = { getFoodsByDogId };
-module.exports = methods;
-// router.post('/', validateDogInfo, createDog);
-// router.put('/:dogId', [validateDogInfo, validateDogId], updateDog);
-// router.delete('/:dogId', validateDogId, deleteDog);
+const dogFoodInfo = { getFoodsByDogId, createFood, validateFoodInfo };
+module.exports = dogFoodInfo;
