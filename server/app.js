@@ -39,21 +39,25 @@ app.get('/test-error', async (req, res) => {
 
 app.use('/dogs', dogsRouters);
 
-// https://github.com/davidbanham/express-async-errors
-app.use((err, req, res, next) => {
-  if (err) {
-    res.status(403);
-    res.json({ error: err.message });
-  }
-
-  next(err);
-});
-
 app.use((req, res, next) => {
   if (!req.route) {
     res.statusCode = 404;
     throw new Error("The requested resource couldn't be found");
   }
+});
+
+// https://github.com/davidbanham/express-async-errors
+app.use((err, req, res, next) => {
+  if (err) {
+    res.status(403);
+    res.json({
+      error: err.message,
+      statusCode: err.statusCode || 500,
+      stack: err.stack
+    });
+  }
+
+  next(err);
 });
 
 const port = 5000;
