@@ -5,8 +5,12 @@ require('express-async-errors');
 app.use('/static', express.static('assets'));
 app.use(express.json());
 
+// https://codesource.io/creating-a-logging-middleware-in-expressjs/
 const demoLogger = (req, res, next) => {
-  console.log(req.method, req.url);
+  res.on('finish', () => {
+    // read and log the status code of the response
+    console.log(req.method, req.url);
+  });
   next();
 };
 app.use(demoLogger);
@@ -40,6 +44,13 @@ app.use((err, req, res, next) => {
   }
 
   next(err);
+});
+
+app.use((req, res, next) => {
+  if (!req.route) {
+    res.statusCode = 404;
+    throw new Error("The requested resource couldn't be found");
+  }
 });
 
 const port = 5000;
